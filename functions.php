@@ -351,8 +351,8 @@ add_action( 'init', 'dance_comp_activate_au' );
 function dance_comp_activate_au()
 {
     require_once('php/dance_comp_wp_autoupdate.php');      // File which contains the Class below
-    $dance_comp_plugin_current_version = '0.9';
-    $dance_comp_plugin_remote_path     = 'https://www.devprolab.com/wordpress/plugin/dance-competition/update.php';
+    $dance_comp_plugin_current_version = '1.0';
+    $dance_comp_plugin_remote_path     = 'https://www.devprolab.com/wordpress/plugin/dance-competition';
     $dance_comp_plugin_slug            = plugin_basename(__FILE__);
     new dance_comp_wp_auto_update( $dance_comp_plugin_current_version, $dance_comp_plugin_remote_path, $dance_comp_plugin_slug );
 }
