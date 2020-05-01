@@ -362,8 +362,6 @@ function dance_comp_activate_au()
     $dance_comp_plugin_remote_path     = 'https://www.devprolab.com/wordpress/plugin/dance-comp/update.php';
     $dance_comp_plugin_slug            = plugin_basename(__FILE__);
 
-    echo $dance_comp_plugin_slug;
-
     $dance_comp_plugin = new wp_auto_update( $dance_comp_plugin_current_version, $dance_comp_plugin_remote_path, $dance_comp_plugin_slug );
 
 }
