@@ -6,7 +6,7 @@
  * Date: 1/30/2019
  * Time: 10:22 PM
  */
-class dance_comp_wp_auto_update
+class wp_auto_update
 {
     /**
      * The plugin current version
@@ -45,13 +45,17 @@ class dance_comp_wp_auto_update
         $this->update_path     = $update_path;
         $this->plugin_slug     = $plugin_slug;
         list ($t1, $t2)        = explode('/', $plugin_slug);
-        $this->slug            = str_replace( '.php', '', $t2 );
+        $this->slug           = str_replace( '.php', '', $t2 );
+
+        //$value = apply_filters( 'pre_set_site_transient_update_plugins', 'update','arg1');
 
         // define the alternative API for updating checking
         add_filter( 'pre_set_site_transient_update_plugins', array( &$this, 'check_update' ) );
-
+        //$this->check_update($transient);
         // Define the alternative response for information checking
-        add_filter('plugins_api', array(&$this, 'check_info'), 10, 3);
+        add_filter( 'plugins_api', array(&$this, 'check_info'), 10, 3);
+        //$this->check_info($false, $action, $arg );
+        //var_dump($this);
     }
 
     /**
@@ -65,22 +69,20 @@ class dance_comp_wp_auto_update
         if( empty( $transient->checked ) ) {
             return $transient;
         }
-
         // Get the remote version
         $remote_version = $this->getRemote_version();
         $icons = $this->getRemote_information()->icons;
 
         // If a newer version is available, add the update
         if ( version_compare( $this->current_version, $remote_version, '<' ) ) {
-            $obj          = new stdClass();
-            $obj->slug    = $this->slug;
-            $obj->new_version = $remote_version;
-            $obj->url     = $this->update_path;
-            $obj->package = $this->update_path;
-            $obj->icons = $icons;
+            $obj                = new stdClass();
+            $obj->slug          = $this->slug;
+            $obj->new_version   = $remote_version;
+            $obj->url           = $this->update_path;
+            $obj->package       = $this->update_path;
+            $obj->icons         = $icons;
             $transient->response[$this->plugin_slug] = $obj;
         }
-        //var_dump( $transient );
         return $transient;
     }
 

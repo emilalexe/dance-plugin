@@ -11,8 +11,8 @@
     if ( ! function_exists( 'get_plugins' ) ) {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
     }
-    $all_plugins = get_plugins( '/dance-comp/');
-    $plugin_version = $all_plugins['functions.php']['Version'];
+    $all_plugins = get_plugins( '/dance-competition/');
+    $plugin_version = $all_plugins['dance_comp_functions.php']['Version'];
     echo __("Dance Competition").'<sub class="dance_comp-bold-h1-sub"> v '.$plugin_version.'</sub>';
 
     echo " - ".__('Settings','dance_comp_domain');

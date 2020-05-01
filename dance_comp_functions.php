@@ -110,7 +110,7 @@ function dance_comp_db_install(){
             'post_type' => 'page',
             'post_name' => 'dance_comp',
             'post_title' => 'Dance Competition',
-            'post_content' => '<a href="https://www.devprolab.com/wordpress/plugin/dance-competition/?site='.get_site_url().'" target="_blank"><h1>Dance Competition</h1></a>',
+            'post_content' => '<a href="https://www.devprolab.com/wordpress/plugin/dance-comp/?site='.get_site_url().'" target="_blank"><h1>Dance Competition</h1></a>',
             'post_status' => 'publish',
             'ping_status' => 'open',
             'menu_order' => 999
@@ -347,12 +347,23 @@ function dance_comp_modify_settings(){
 }
 
 /** UPDATE */
-add_action( 'init', 'dance_comp_activate_au' );
+add_action('init', 'dance_comp_activate_au');
 function dance_comp_activate_au()
 {
-    require_once('php/dance_comp_wp_autoupdate.php');      // File which contains the Class below
+
+
+    if( !class_exists('wp_auto_update') ) {
+        require_once('php/wp_auto_update.php');      // File which contains the Class below
+        echo '<!-- <p>Class not exist in dance_comp</p> -->';
+    }else{
+        echo '<!-- <p>Class exist in dance_comp</p> -->';
+    }
     $dance_comp_plugin_current_version = '1.0';
-    $dance_comp_plugin_remote_path     = 'https://www.devprolab.com/wordpress/plugin/dance-competition';
+    $dance_comp_plugin_remote_path     = 'https://www.devprolab.com/wordpress/plugin/dance-comp/update.php';
     $dance_comp_plugin_slug            = plugin_basename(__FILE__);
-    new dance_comp_wp_auto_update( $dance_comp_plugin_current_version, $dance_comp_plugin_remote_path, $dance_comp_plugin_slug );
+
+    echo $dance_comp_plugin_slug;
+
+    $dance_comp_plugin = new wp_auto_update( $dance_comp_plugin_current_version, $dance_comp_plugin_remote_path, $dance_comp_plugin_slug );
+
 }
